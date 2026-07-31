@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joydelina Álvarez · Ingeniera de Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfaf7;
+    --surface:#ffffff;
+    --ink:#1b1b2f;
+    --muted:#6b6b80;
+    --line:#eae7de;
+    --violet:#7c5cff;
+    --coral:#ff6f61;
+    --teal:#17c3b2;
+    --amber:#ffb703;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{ font-family:'Sora', sans-serif; }
+  a{ color:inherit; }
+  section{ padding:110px 8vw 90px; max-width:1180px; margin:0 auto; }
+
+  /* ---------- Scroll progress ---------- */
+  #progress{
+    position:fixed; top:0; left:0; height:3px;
+    background:linear-gradient(90deg,var(--violet),var(--coral));
+    width:0%; z-index:999;
+  }
+
+  /* ---------- Navbar ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:900;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 6vw;
+    background:rgba(251,250,247,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s, box-shadow .3s;
+  }
+  nav.scrolled{ border-color:var(--line); box-shadow:0 4px 20px rgba(0,0,0,0.04); }
+  .logo{ font-family:'Sora', sans-serif; font-weight:800; font-size:19px; }
+  .logo span{ color:var(--violet); }
+  .nav-links{ display:flex; gap:34px; list-style:none; }
+  .nav-links a{
+    font-size:14px; font-weight:600; text-decoration:none; color:var(--muted);
+    position:relative; padding-bottom:6px; transition:color .2s;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; height:2px; width:0;
+    background:linear-gradient(90deg,var(--violet),var(--coral));
+    transition:width .25s;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a.active{ color:var(--ink); }
+  .nav-links a.active::after{ width:100%; }
+  .burger{ display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:950; }
+  .burger span{ width:24px; height:2px; background:var(--ink); transition:.25s; }
+  .burger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .burger.open span:nth-child(2){ opacity:0; }
+  .burger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-panel{
+    position:fixed; top:0; right:-100%; width:72%; height:100vh;
+    background:var(--surface); z-index:930; padding:100px 34px;
+    transition:right .3s ease; box-shadow:-10px 0 30px rgba(0,0,0,0.08);
+  }
+  .mobile-panel.open{ right:0; }
+  .mobile-panel a{
+    display:block; padding:16px 0; font-weight:600; text-decoration:none;
+    color:var(--ink); border-bottom:1px solid var(--line);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    display:flex; align-items:center; gap:60px;
+    min-height:92vh; padding-top:130px;
+    flex-wrap:wrap;
+  }
+  .hero-text{ flex:1; min-width:300px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:600; color:var(--teal);
+    background:rgba(23,195,178,0.1); padding:7px 14px; border-radius:20px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--teal); }
+  .hero-text h1{
+    font-size:clamp(34px,5.5vw,58px); line-height:1.08; font-weight:800;
+  }
+  .hero-text h1 .grad{
+    background:linear-gradient(90deg,var(--violet),var(--coral));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{ margin-top:22px; color:var(--muted); max-width:480px; font-size:16px; }
+  .hero-cta{ display:flex; gap:16px; margin-top:34px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:10px; font-weight:600; font-size:14.5px;
+    text-decoration:none; transition:transform .2s, box-shadow .2s;
+  }
+  .btn-primary{ background:var(--ink); color:#fff; }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(27,27,47,0.25); }
+  .btn-ghost{ border:1.5px solid var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--ink); transform:translateY(-2px); }
+
+  .hero-visual{ flex:0 0 300px; display:flex; justify-content:center; position:relative; }
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(2px); opacity:.55; z-index:0;
+    animation:float 7s ease-in-out infinite;
+  }
+  .blob1{ width:130px; height:130px; background:var(--amber); top:-30px; left:-20px; }
+  .blob2{ width:100px; height:100px; background:var(--teal); bottom:-10px; right:-10px; animation-delay:1.2s; }
+  @keyframes float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-16px); } }
+
+  .avatar-frame{
+  position:relative; z-index:1;
+  width:280px; height:340px; border-radius:24px;
+  border:none;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(27,27,47,0.08);
+}
+.avatar-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+  /* ---------- Section titles ---------- */
+  .tag{
+    font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--coral); margin-bottom:10px; display:block;
+  }
+  .sec-title{ font-size:clamp(26px,3.5vw,36px); font-weight:800; margin-bottom:46px; }
+
+  /* ---------- About ---------- */
+  .about-grid{ display:flex; gap:50px; flex-wrap:wrap; align-items:flex-start; }
+  .about-text{ flex:1; min-width:280px; color:var(--muted); font-size:15.5px; }
+  .about-text p{ margin-bottom:16px; }
+  .about-stats{ display:flex; flex-direction:column; gap:18px; min-width:200px; }
+  .stat{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px 22px; }
+  .stat b{ display:block; font-size:22px; font-family:'Sora',sans-serif; color:var(--violet); }
+  .stat span{ font-size:13px; color:var(--muted); }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; }
+  .skill-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:26px;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .skill-card:hover{ transform:translateY(-5px); box-shadow:0 16px 34px rgba(27,27,47,0.08); }
+  .skill-icon{
+    width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:20px; margin-bottom:16px;
+  }
+  .skill-card h3{ font-size:16px; margin-bottom:10px; }
+  .skill-card p{ font-size:13.5px; color:var(--muted); line-height:1.6; }
+
+/* ---------- Projects ---------- */
+.project-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+  gap: 28px; 
+  align-items: start; 
+}
+
+.project-card {
+  background: var(--surface); 
+  border: 1px solid var(--line); 
+  border-radius: 18px; 
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover { 
+  transform: translateY(-6px); 
+  box-shadow: 0 22px 44px rgba(27,27,47,0.1); 
+}
+
+.project-thumb {
+  height: 170px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-family: 'Sora', sans-serif; 
+  font-weight: 700; 
+  font-size: 15px; 
+  color: #fff;
+}
+
+.thumb-a { background: linear-gradient(135deg, var(--violet), var(--coral)); }
+.thumb-b { background: linear-gradient(135deg, var(--teal), #0a7d70); }
+
+.project-body { 
+  padding: 24px 26px 28px; 
+}
+
+.project-body h3 { font-size: 18px; margin-bottom: 10px; }
+.project-body p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+
+.stack-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.stack-row span {
+  font-size: 11.5px; 
+  font-weight: 600; 
+  background: var(--bg); 
+  border: 1px solid var(--line);
+  padding: 5px 10px; 
+  border-radius: 20px; 
+  color: var(--muted);
+}
+
+.project-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.project-link {
+  font-size: 13.5px; 
+  font-weight: 700; 
+  text-decoration: none; 
+  color: var(--violet);
+  display: inline-flex; 
+  align-items: center; 
+  gap: 6px;
+}
+.project-link:hover { text-decoration: underline; }
+
+.project-link-live {
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--coral);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.project-link-live:hover { text-decoration: underline; }
+
+  /* ---------- Timeline ---------- */
+  .timeline{ border-left:2px solid var(--line); padding-left:34px; display:flex; flex-direction:column; gap:34px; }
+  .tl-item{ position:relative; }
+  .tl-item::before{
+    content:""; position:absolute; left:-41px; top:2px; width:14px; height:14px; border-radius:50%;
+    background:var(--violet); border:3px solid var(--bg);
+  }
+  .tl-item .tl-time{ font-size:12.5px; font-weight:700; color:var(--coral); margin-bottom:4px; display:block; }
+  .tl-item h3{ font-size:17px; margin-bottom:5px; }
+  .tl-item p{ font-size:13.5px; color:var(--muted); }
+
+  /* ---------- Contact ---------- */
+  .contact-wrap{
+    background:linear-gradient(135deg,var(--ink),#2c2c4d);
+    border-radius:26px; padding:60px 8vw; color:#fff; display:flex; gap:50px; flex-wrap:wrap;
+    justify-content:space-between;
+  }
+  .contact-wrap h2{ font-size:clamp(26px,3.5vw,34px); max-width:420px; }
+  .contact-wrap .sub{ color:#c4c3d6; margin-top:14px; max-width:420px; font-size:14.5px; }
+  .contact-list{ display:flex; flex-direction:column; gap:16px; }
+  .contact-list a{
+    display:flex; align-items:center; gap:12px; text-decoration:none; color:#fff;
+    font-size:15px; font-weight:600;
+  }
+  .contact-list a span.ico{
+    width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,0.1);
+    display:flex; align-items:center; justify-content:center; font-size:15px;
+  }
+  .contact-note{ margin-top:6px; font-size:12.5px; color:#9391ab; }
+
+  footer{ text-align:center; padding:34px; color:var(--muted); font-size:13px; }
+
+  @media (max-width:760px){
+    .nav-links{ display:none; }
+    .burger{ display:flex; }
+    section{ padding:90px 6vw 70px; }
+    .hero{ padding-top:110px; flex-direction:column-reverse; text-align:center; }
+    .hero-cta{ justify-content:center; }
+    .about-grid{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav id="navbar">
+  <div class="logo">Joydelina<span>.dev</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#sobremi">Sobre mí</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#educacion">Educación</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#inicio">Inicio</a>
+  <a href="#sobremi">Sobre mí</a>
+  <a href="#habilidades">Habilidades</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#educacion">Educación</a>
+  <a href="#contacto">Contacto</a>
+</div>
+
+<section id="inicio" class="hero">
+  <div class="hero-text">
+    <div class="eyebrow"><span class="dot"></span> Disponibilidad inmediata</div>
+    <h1>Hola, soy Joydelina Alvarez —<br><span class="grad">construyo software</span> con propósito.</h1>
+    <p class="hero-sub">Estudiante de Ingeniería de Software con formación técnica en desarrollo y administración de aplicaciones. Me apasiona convertir problemas reales en sistemas funcionales, claros y bien pensados.</p>
+    <div class="hero-cta">
+      <a href="#proyectos" class="btn btn-primary">Ver mis proyectos →</a>
+      <a href="#contacto" class="btn btn-ghost">Contáctame</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="avatar-frame">
+  <img src="foto 2x2.jpg" alt="Joydelina Álvarez">
+</div>
+  </div>
+</section>
+
+<section id="sobremi">
+  <span class="tag">Sobre mí</span>
+  <h2 class="sec-title">¿Quién soy y qué me mueve?</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Soy estudiante de Ingeniería de Software en la Universidad del Caribe, con formación técnica previa en Desarrollo y Administración de Aplicaciones Informáticas. Tengo conocimientos en programación, análisis y desarrollo de sistemas, manejo herramientas tales como HTML, CSS, JavaScript y SQL Server.</p>
+      <p>Me caracterizo por mi capacidad de aprendizaje, pensamiento lógico, compromiso y disposición para trabajar en equipo. Busco seguir desarrollando mis habilidades técnicas y aportar soluciones prácticas, eficientes y orientadas a las necesidades reales de cada proyecto.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat"><b>2022</b><span>Iniciando Ingeniería de Software</span></div>
+      <div class="stat"><b>4+</b><span>Proyectos desarrollados</span></div>
+      <div class="stat"><b>SQL</b><span>Server como base técnica</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="habilidades">
+  <span class="tag">Habilidades Técnicas</span>
+  <h2 class="sec-title">¿Con qué trabajo?</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(124,92,255,.12); color:var(--violet);">🖥️</div>
+      <h3>Desarrollo Web</h3>
+      <p>HTML, CSS y JavaScript para construir interfaces funcionales, responsivas y con buena experiencia de usuario.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(23,195,178,.12); color:var(--teal);">🗄️</div>
+      <h3>Bases de Datos</h3>
+      <p>SQL Server, SQL y diseño relacional para modelar y gestionar datos de forma estructurada.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(255,183,3,.15); color:var(--amber);">🛠️</div>
+      <h3>Herramientas</h3>
+      <p>VS Code, Git y GitHub para control de versiones, además de Power BI y Microsoft Office.</p>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <span class="tag">Proyectos</span>
+  <h2 class="sec-title">Lo que he construido</h2>
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="project-thumb thumb-a">Pagina Web</div>
+      <div class="project-body">
+        <h3>BarberPro</h3>
+        <p>Sistema de gestión para barberías con panel de control para clientes, citas, cola de espera e ingresos, más un sistema de autenticación para que cada barbero cree su cuenta y acceda de forma individual.</p>
+        <div class="stack-row"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/Alexaimy-Alvarez28/Proyecto-BarberPRO" target="_blank">Ver repositorio →</a>
+          <a class="project-link-live" href="https://alexaimy-alvarez28.github.io/Proyecto-BarberPRO/" target="_blank">Probar en vivo →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb thumb-a">Pagina Web</div>
+      <div class="project-body">
+        <h3>MediCitas</h3>
+        <p>Sistema web de agendamiento de citas médicas que conecta pacientes y médicos en una sola plataforma, con roles y paneles independientes para cada tipo de usuario.</p>
+        <div class="stack-row"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/Alexaimy-Alvarez28/MediCitas.git" target="_blank">Ver repositorio →</a>
+          <a class="project-link-live" href="https://alexaimy-alvarez28.github.io/MediCitas/" target="_blank">Probar en vivo →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb thumb-b">Base de Datos</div>
+      <div class="project-body">
+        <h3>Sistema de Gestión de Base de Datos para un Video Club</h3>
+        <p>Base de datos para la gestión de un video club desarrollada en SQL Server, con administración de películas, socios, préstamos, citas y lista de espera mediante un modelo relacional.</p>
+        <div class="stack-row"><span>SQL Server</span><span>T-SQL</span><span>Diseño relacional</span></div>
+        <a class="project-link" href="https://github.com/Alexaimy-Alvarez28/BASE-DE-DATOS---VIDEO-CLUB-.git" target="_blank">Ver repositorio →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb thumb-b">Base de Datos</div>
+      <div class="project-body">
+        <h3>Sistema de Gestión de Base de Datos para Gestion Universitaria</h3>
+        <p>Base de datos para la gestion universitaria, con administracion de profesores, asignaturas, titulciones y departamentos mediante un modelo relacional.</p>
+        <div class="stack-row"><span>SQL Server</span><span>T-SQL</span><span>Diseño relacional</span></div>
+        <a class="project-link" href="https://github.com/Alexaimy-Alvarez28/BD-GESTION-UNIVERSITARIA.git" target="_blank">Ver repositorio →</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section id="educacion">
+  <span class="tag">Educación</span>
+  <h2 class="sec-title">Mi formación</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="tl-time">2022 — Actualidad</span>
+      <h3>Ingeniería de Software</h3>
+      <p>Universidad del Caribe</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-time">2017 — 2021</span>
+      <h3>Bachillerato Técnico en Desarrollo y Administración de Aplicaciones Informáticas</h3>
+      <p>Formación técnica en programación y sistemas</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="contact-wrap">
+    <div>
+      <h2>¿Buscas sumar talento junior con ganas de crecer?</h2>
+      <p class="sub">Estoy disponible de inmediato y abierta a nuevas oportunidades. Escríbeme por cualquiera de estos medios.</p>
+    </div>
+    <div class="contact-list">
+      <a href="mailto:joydelinacastillo@gmail.com"><span class="ico">✉️</span> joydelinacastillo@gmail.com</a>
+      <a href="tel:8098840415"><span class="ico">📞</span> 809-884-0415</a>
+      <a href="https://github.com/Alexaimy-Alvarez28" target="_blank"><span class="ico">🐙</span> github.com/Alexaimy-Alvarez28</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Joydelina Álvarez</footer>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    document.getElementById('progress').style.width = scrolled + '%';
+
+    document.getElementById('navbar').classList.toggle('scrolled', h.scrollTop > 20);
+  });
+
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  const panel = document.getElementById('mobilePanel');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    panel.classList.toggle('open');
+  });
+  panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    panel.classList.remove('open');
+  }));
+
+  // Scrollspy: resalta el link activo según la sección visible
+  const sections = document.querySelectorAll('section[id]');
+  const navA = document.querySelectorAll('.nav-links a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        navA.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
