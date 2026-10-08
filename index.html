@@ -321,6 +321,42 @@
     .process{ grid-template-columns:1fr 1fr; }
     .process-step:nth-child(2){ border-right:none; }
   }
+
+  /* ========================================
+     ÍCONOS MINIMALISTAS (reemplazan los emojis)
+     Línea fina, un solo color: heredan el color del texto (currentColor)
+     ======================================== */
+  .icn{
+    display:inline-block; width:1em; height:1em; flex-shrink:0;
+    background-color:currentColor;
+    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+    -webkit-mask-position:center; mask-position:center;
+    -webkit-mask-size:contain; mask-size:contain;
+    -webkit-mask-image:var(--i); mask-image:var(--i);
+  }
+
+  .icn-luna{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/></svg>"); }
+  .icn-sol{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'/></svg>"); }
+  .icn-monitor{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='3' width='20' height='14' rx='2'/><path d='M8 21h8M12 17v4'/></svg>"); }
+  .icn-servidor{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='3' width='20' height='8' rx='2'/><rect x='2' y='13' width='20' height='8' rx='2'/><path d='M6 7h.01M6 17h.01'/></svg>"); }
+  .icn-base-datos{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='12' cy='5' rx='9' ry='3'/><path d='M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3'/></svg>"); }
+  .icn-matraz{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M9 2h6M10 2v6.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8.5V2M7.5 14h9'/></svg>"); }
+  .icn-diseno{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='m12 19 7-7 3 3-7 7-3-3z'/><path d='m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z'/><path d='m2 2 7.586 7.586'/><circle cx='11' cy='11' r='2'/></svg>"); }
+  .icn-llave{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z'/></svg>"); }
+  .icn-correo{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='4' width='20' height='16' rx='2'/><path d='m22 7-10 6L2 7'/></svg>"); }
+  .icn-telefono{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/></svg>"); }
+  .icn-github{ --i:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4'/><path d='M9 18c-4.51 2-5-2-7-2'/></svg>"); }
+
+  /* Tamaños por zona */
+  .skill-icon .icn{ width:19px; height:19px; }
+  .contact-list .icn{ width:17px; height:17px; }
+
+  /* Botón de tema: luna en modo claro, sol en modo oscuro */
+  .theme-toggle{ color:var(--ink); }
+  .theme-toggle .icn{ width:18px; height:18px; }
+  .theme-toggle .icn-sol{ display:none; }
+  html[data-theme="dark"] .theme-toggle .icn-luna{ display:none; }
+  html[data-theme="dark"] .theme-toggle .icn-sol{ display:inline-block; }
 </style>
 </head>
 <body>
@@ -336,7 +372,7 @@
     <li><a href="#proyectos">Proyectos</a></li>
     <li><a href="#educacion">Educación</a></li>
     <li><a href="#contacto">Contacto</a></li>
-    <li><button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">🌙</button></li>
+    <li><button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icn icn-luna" aria-hidden="true"></span><span class="icn icn-sol" aria-hidden="true"></span></button></li>
   </ul>
   <div class="burger" id="burger"><span></span><span></span><span></span></div>
 </nav>
@@ -398,7 +434,7 @@
 
     <div class="skill-card">
       <div class="skill-top">
-        <div class="skill-icon" style="background:color-mix(in srgb, var(--violet) 15%, transparent); color:var(--violet);">🖥️</div>
+        <div class="skill-icon" style="background:color-mix(in srgb, var(--violet) 15%, transparent); color:var(--violet);"><span class="icn icn-monitor" aria-hidden="true"></span></div>
         <h3>Frontend</h3>
       </div>
       <div class="skill-bar"><i data-pct="92" style="background:var(--violet);"></i></div>
@@ -407,7 +443,7 @@
 
     <div class="skill-card">
       <div class="skill-top">
-        <div class="skill-icon" style="background:color-mix(in srgb, var(--coral) 15%, transparent); color:var(--coral);">⚙️</div>
+        <div class="skill-icon" style="background:color-mix(in srgb, var(--coral) 15%, transparent); color:var(--coral);"><span class="icn icn-servidor" aria-hidden="true"></span></div>
         <h3>Backend</h3>
       </div>
       <div class="skill-bar"><i data-pct="78" style="background:var(--coral);"></i></div>
@@ -416,7 +452,7 @@
 
     <div class="skill-card">
       <div class="skill-top">
-        <div class="skill-icon" style="background:color-mix(in srgb, var(--teal) 15%, transparent); color:var(--teal);">🗄️</div>
+        <div class="skill-icon" style="background:color-mix(in srgb, var(--teal) 15%, transparent); color:var(--teal);"><span class="icn icn-base-datos" aria-hidden="true"></span></div>
         <h3>Bases de Datos</h3>
       </div>
       <div class="skill-bar"><i data-pct="88" style="background:var(--teal);"></i></div>
@@ -425,7 +461,7 @@
 
     <div class="skill-card">
       <div class="skill-top">
-        <div class="skill-icon" style="background:color-mix(in srgb, var(--amber) 18%, transparent); color:var(--amber);">🧪</div>
+        <div class="skill-icon" style="background:color-mix(in srgb, var(--amber) 18%, transparent); color:var(--amber);"><span class="icn icn-matraz" aria-hidden="true"></span></div>
         <h3>Testing</h3>
       </div>
       <div class="skill-bar"><i data-pct="70" style="background:var(--amber);"></i></div>
@@ -434,7 +470,7 @@
 
     <div class="skill-card">
       <div class="skill-top">
-        <div class="skill-icon" style="background:color-mix(in srgb, var(--violet) 15%, transparent); color:var(--violet);">🎨</div>
+        <div class="skill-icon" style="background:color-mix(in srgb, var(--violet) 15%, transparent); color:var(--violet);"><span class="icn icn-diseno" aria-hidden="true"></span></div>
         <h3>UI / UX</h3>
       </div>
       <div class="skill-bar"><i data-pct="85" style="background:var(--violet);"></i></div>
@@ -443,7 +479,7 @@
 
     <div class="skill-card">
       <div class="skill-top">
-        <div class="skill-icon" style="background:color-mix(in srgb, var(--coral) 15%, transparent); color:var(--coral);">🛠️</div>
+        <div class="skill-icon" style="background:color-mix(in srgb, var(--coral) 15%, transparent); color:var(--coral);"><span class="icn icn-llave" aria-hidden="true"></span></div>
         <h3>Herramientas</h3>
       </div>
       <div class="skill-bar"><i data-pct="90" style="background:var(--coral);"></i></div>
@@ -597,9 +633,9 @@
       <p class="sub">Estoy disponible de inmediato y abierta a nuevas oportunidades. Escríbeme por cualquiera de estos medios.</p>
     </div>
     <div class="contact-list">
-      <a href="mailto:joydelinacastillo@gmail.com"><span class="ico">✉️</span> joydelinacastillo@gmail.com</a>
-      <a href="tel:8098840415"><span class="ico">📞</span> 809-884-0415</a>
-      <a href="https://github.com/Alexaimy-Alvarez28" target="_blank"><span class="ico">🐙</span> github.com/Alexaimy-Alvarez28</a>
+      <a href="mailto:joydelinacastillo@gmail.com"><span class="ico"><span class="icn icn-correo" aria-hidden="true"></span></span> joydelinacastillo@gmail.com</a>
+      <a href="tel:8098840415"><span class="ico"><span class="icn icn-telefono" aria-hidden="true"></span></span> 809-884-0415</a>
+      <a href="https://github.com/Alexaimy-Alvarez28" target="_blank"><span class="ico"><span class="icn icn-github" aria-hidden="true"></span></span> github.com/Alexaimy-Alvarez28</a>
     </div>
   </div>
 </section>
@@ -639,11 +675,10 @@
   }, { rootMargin: '-40% 0px -50% 0px' });
   sections.forEach(s => spy.observe(s));
 
-  // Theme toggle
+  // Theme toggle (el ícono luna/sol lo cambia el CSS según data-theme)
   const toggle = document.getElementById('themeToggle');
   function applyTheme(theme){
     document.documentElement.setAttribute('data-theme', theme);
-    toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
   }
   let saved = null;
   try{ saved = localStorage.getItem('jv-theme'); }catch(e){}
